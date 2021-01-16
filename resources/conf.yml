@@ -1,0 +1,37 @@
+#   图片降噪
+dataset:
+   #   训练集相关配置
+   in_train: /Users/irenebritney/Desktop/vcode/dataset/num_letter/train
+   label_train: /Users/irenebritney/Desktop/vcode/dataset/num_letter/train_without_noise
+   count_train: 100
+   #   验证集相关配置
+   in_val: /Users/irenebritney/Desktop/vcode/dataset/num_letter/val
+   label_val: /Users/irenebritney/Desktop/vcode/dataset/num_letter/val_without_noise
+   count_val: 10
+   #   测试集相关配置
+   in_test: /Users/irenebritney/Desktop/vcode/dataset/num_letter/test
+   label_test: /Users/irenebritney/Desktop/vcode/dataset/num_letter/test_without_noise
+   count_test: 10
+   #   数据集统一长宽
+   image_width: 480
+   image_height: 180
+   
+   
+#   dscnns相关配置
+dscnns:
+   #   cnns层基础通道数
+   base_channel_num: 64
+   #   block层循环多少次
+   block_num: 16
+   #   是否启用偏置项
+   is_bias: false
+
+   
+#   训练相关
+train:
+   batch_size: 32
+   epochs: 5
+   tensorboard_out: logs/tensorboard
+   learning_rate: 0.01
+   save_weights_out: temp/models
+   
