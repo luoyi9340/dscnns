@@ -29,7 +29,7 @@ dscnns:
    
 #   训练相关
 train:
-   batch_size: 32
+   batch_size: 1
    epochs: 5
    tensorboard_out: logs/tensorboard
    learning_rate: 0.01

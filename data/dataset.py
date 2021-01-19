@@ -39,12 +39,13 @@ def file_generator(in_dir='', count=10, label_dir='',
         if (x_preprocess): x = x_preprocess(x)
         
         y_image = PIL.Image.open(label_fpath, mode='r')
-        y_image = x_image.resize((conf.DATASET.get_image_width(), conf.DATASET.get_image_height()), PIL.Image.ANTIALIAS)
+        y_image = y_image.resize((conf.DATASET.get_image_width(), conf.DATASET.get_image_height()), PIL.Image.ANTIALIAS)
         y = np.asarray(y_image, dtype=np.float32)
         if (y_preprocess): y = y_preprocess(y)
         
+        
         #    实际的y数据是 原图 - 无噪图
-        yield x, x - y
+        yield x, y
         pass
     pass
 
@@ -67,6 +68,8 @@ def generator_db_tf(in_dir='', count=0, label_dir='', batch_size=32, epochs=5, x
                                                                     x_preprocess=x_preprocess,
                                                                     y_preprocess=y_preprocess), 
                                         output_types=(tf.float32, tf.float32), 
-                                        output_shapes=(x_shape, y_shape)).batch(batch_size)
+                                        output_shapes=(x_shape, y_shape))
+    db = db.shuffle(buffer_size=batch_size * 128)
+    db = db.batch(batch_size)
     db = db.repeat(epochs)
     return db
